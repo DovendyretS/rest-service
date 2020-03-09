@@ -14,17 +14,17 @@ import java.rmi.RemoteException;
 @RestController
 public class GameController  {
 
-    private String guess = "A";
     private main.game.GalgelogikI logik;
 
 
-   public void getInformation() throws RemoteException, NotBoundException, MalformedURLException {
+    public void getInformation() throws RemoteException, NotBoundException, MalformedURLException {
        logik = (main.game.GalgelogikI) Naming.lookup("rmi://localhost:20222/logics185123");
    }
 
     @GetMapping("/game")
     public Game getGame() throws RemoteException, NotBoundException, MalformedURLException {
        getInformation();
+
         if (logik != null) {
             try {
                 return new Game(logik.getSynligtOrd(), logik.getAntalForkerteBogstaver(), logik.getBrugteBogstaver(),
