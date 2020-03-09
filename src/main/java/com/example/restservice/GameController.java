@@ -19,7 +19,7 @@ public class GameController  {
 
 
    public void getInformation() throws RemoteException, NotBoundException, MalformedURLException {
-       logik = (main.game.GalgelogikI) Naming.lookup("rmi://dist.saluton.dk:20123/logics185123");
+       logik = (main.game.GalgelogikI) Naming.lookup("rmi://localhost:20222/logics185123");
    }
 
     @GetMapping("/game")
@@ -27,7 +27,8 @@ public class GameController  {
        getInformation();
         if (logik != null) {
             try {
-                return new Game(logik.getSynligtOrd(), logik.getAntalForkerteBogstaver(), logik.getBrugteBogstaver());
+                return new Game(logik.getSynligtOrd(), logik.getAntalForkerteBogstaver(), logik.getBrugteBogstaver(),
+                        logik.erSpilletSlut());
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

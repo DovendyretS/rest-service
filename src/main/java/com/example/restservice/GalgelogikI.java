@@ -9,4 +9,10 @@ public interface GalgelogikI extends java.rmi.Remote{
 
     int getAntalForkerteBogstaver() throws java.rmi.RemoteException;
 
+    boolean erSpilletSlut() throws java.rmi.RemoteException;
+
+    boolean erSpilletVundet() throws java.rmi.RemoteException;
+
+    boolean erSpilletTabt() throws java.rmi.RemoteException;
+
 }

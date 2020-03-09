@@ -7,11 +7,13 @@ public class Game {
     private String visibleWord;
     private int lives;
     private ArrayList<String> usedLetters;
+    private boolean isGameOver;
 
-    public Game(String visibleWord, int lives, ArrayList<String> usedLetters) {
+    public Game(String visibleWord, int lives, ArrayList<String> usedLetters, boolean isGameOver) {
         this.visibleWord = visibleWord;
         this.lives = lives;
         this.usedLetters = usedLetters;
+        this.isGameOver = isGameOver;
     }
 
     public String getVisibleWord() {
