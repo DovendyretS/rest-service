@@ -24,7 +24,7 @@ public class GameController  {
     @ResponseBody
     public Object getGame(@PathVariable String name) throws RemoteException, NotBoundException, MalformedURLException {
        getInformation();
-        if ((mBrugerValidation.checkUser(name).getStatusCode()) == HttpStatus.OK){
+        if ((mBrugerValidation.checkUserTimeout(name).getStatusCode()) == HttpStatus.OK){
             if (logik != null) {
                 try {
                     return new Game(logik.getSynligtOrd(), logik.getAntalForkerteBogstaver(), logik.getBrugteBogstaver(),
@@ -41,7 +41,7 @@ public class GameController  {
     @ResponseBody
     public Object guess(@RequestParam("guess") String guess, @RequestParam("name") String name) throws RemoteException, MalformedURLException, NotBoundException {
         getInformation();
-        if ((mBrugerValidation.checkUser(name)).getStatusCode() == HttpStatus.OK) {
+        if ((mBrugerValidation.checkUserTimeout(name)).getStatusCode() == HttpStatus.OK) {
             logik.gætBogstav(guess);
             return HttpStatus.OK;
         }

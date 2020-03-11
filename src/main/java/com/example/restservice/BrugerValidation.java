@@ -23,14 +23,18 @@ public class BrugerValidation {
         return BrugerValidation.instance;
     }
 
+    // Saves all users in a hashmap with their name and last time they were active
     public void addBruger(String name){
         brugere.put(name,System.currentTimeMillis());
     }
 
-    public ResponseEntity checkUser(String name) {
+    // Checks if the user has been "afk" for more than 5 minutes and will return a
+    // FORBIDDEN status code meaning the user will have to login again on the client-side
+    // otherwise it returns OK
+    public ResponseEntity checkUserTimeout(String name) {
         System.out.println(brugere.toString());
         lastActive = System.currentTimeMillis();
-        long timeGap = 20000;
+        long timeGap = 300000;
 
         Iterator it = brugere.entrySet().iterator();
 
