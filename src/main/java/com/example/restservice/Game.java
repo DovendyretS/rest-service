@@ -16,6 +16,8 @@ public class Game {
         this.isGameOver = isGameOver;
     }
 
+    public Game(){}
+
     public Game(String visibleWord){
         this.visibleWord = visibleWord;
     }

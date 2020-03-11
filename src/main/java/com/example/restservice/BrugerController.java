@@ -16,23 +16,25 @@ import java.rmi.RemoteException;
 public class BrugerController {
 
 
-
+    private Brugeradmin ba;
+    private BrugerValidation mBrugerValidation = BrugerValidation.getInstance();
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity validateUser(@RequestParam("name") String name,
                                        @RequestParam("password") String password) throws RemoteException, NotBoundException, MalformedURLException {
 
-        Brugeradmin ba = (Brugeradmin)  Naming.lookup("rmi://javabog.dk/brugeradmin");
+        ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
 
         try {
 
             ba.hentBruger(name, password);
-            
+            mBrugerValidation.addBruger(name);
+
             return new ResponseEntity(HttpStatus.OK);
 
         } catch (Exception e) {
-           throw new NotFoundException();
+            throw new NotFoundException();
         }
     }
 }
