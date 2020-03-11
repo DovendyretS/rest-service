@@ -16,6 +16,10 @@ public class Game {
         this.isGameOver = isGameOver;
     }
 
+    public Game(String visibleWord){
+        this.visibleWord = visibleWord;
+    }
+
     public String getVisibleWord() {
         return visibleWord;
     }

@@ -15,4 +15,6 @@ public interface GalgelogikI extends java.rmi.Remote{
 
     boolean erSpilletTabt() throws java.rmi.RemoteException;
 
+    void gætBogstav(String bogstav) throws java.rmi.RemoteException;
+
 }

@@ -1,9 +1,6 @@
 package com.example.restservice;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -18,7 +15,7 @@ public class GameController  {
 
 
     public void getInformation() throws RemoteException, NotBoundException, MalformedURLException {
-       logik = (main.game.GalgelogikI) Naming.lookup("rmi://localhost:20222/logics185123");
+       logik = (main.game.GalgelogikI) Naming.lookup("rmi://dist.saluton.dk:20123/logics185123");
    }
 
     @GetMapping("/game")
@@ -38,8 +35,9 @@ public class GameController  {
 
 
     @PostMapping("/game")
-    public Guess guess(@RequestBody Guess guess){
-       return guess;
+    public void guess(@RequestParam("guess") String guess) throws RemoteException, MalformedURLException, NotBoundException {
+        getInformation();
+        logik.gætBogstav(guess);
     }
 }
 

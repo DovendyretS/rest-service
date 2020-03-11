@@ -28,6 +28,7 @@ public class BrugerController {
         try {
 
             ba.hentBruger(name, password);
+            
             return new ResponseEntity(HttpStatus.OK);
 
         } catch (Exception e) {
