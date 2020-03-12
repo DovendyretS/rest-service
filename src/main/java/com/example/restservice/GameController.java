@@ -27,8 +27,8 @@ public class GameController  {
         if ((mBrugerValidation.checkUserTimeout(name).getStatusCode()) == HttpStatus.OK){
             if (logik != null) {
                 try {
-                    return new Game(logik.getSynligtOrd(), logik.getAntalForkerteBogstaver(), logik.getBrugteBogstaver(),
-                            logik.erSpilletSlut());
+                    return new Game(logik.getSynligtOrd(name), logik.getAntalForkerteBogstaver(name), logik.getBrugteBogstaver(name),
+                            logik.erSpilletSlut(name));
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -42,7 +42,7 @@ public class GameController  {
     public Object guess(@RequestParam("guess") String guess, @RequestParam("name") String name) throws RemoteException, MalformedURLException, NotBoundException {
         getInformation();
         if ((mBrugerValidation.checkUserTimeout(name)).getStatusCode() == HttpStatus.OK) {
-            logik.gætBogstav(guess);
+            logik.gætBogstav(guess,name);
             return HttpStatus.OK;
         }
         else{
