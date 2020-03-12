@@ -28,6 +28,12 @@ public class BrugerValidation {
         brugere.put(name,System.currentTimeMillis());
     }
 
+    public boolean checkBruger(String name){
+        if (brugere.get(name) != null)
+            return true;
+        else  return false;
+    }
+
     // Checks if the user has been "afk" for more than 5 minutes and will return a
     // FORBIDDEN status code meaning the user will have to login again on the client-side
     // otherwise it returns OK
