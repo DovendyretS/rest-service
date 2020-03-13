@@ -19,11 +19,11 @@ public class BrugerController {
     private Brugeradmin ba;
     private BrugerValidation mBrugerValidation = BrugerValidation.getInstance();
 
+
     @GetMapping("/login/{name}")
     public ResponseEntity checkLogin(@PathVariable ("name")String name) throws RemoteException, NotBoundException, MalformedURLException {
-        ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
 
-        if (mBrugerValidation.checkBruger(name))
+        if (mBrugerValidation.checkBruger(name)) // checks if a user is logged in
             return new ResponseEntity(HttpStatus.OK);
 
         else return new ResponseEntity(HttpStatus.FORBIDDEN);

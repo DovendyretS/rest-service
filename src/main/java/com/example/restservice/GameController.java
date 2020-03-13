@@ -25,13 +25,13 @@ public class GameController  {
     @ResponseBody
     public Object getGame(@PathVariable String name) throws RemoteException, NotBoundException, MalformedURLException {
        getInformation();
-        if ((mBrugerValidation.checkUserTimeout(name).getStatusCode()) == HttpStatus.OK){
+        if ((mBrugerValidation.checkUserTimeout(name).getStatusCode()) == HttpStatus.OK){ // checks if a user has been timed out
             if (logik != null) {
                 try {
-                    if (logik.erSpilletSlut(name))
+                    if (logik.erSpilletSlut(name)) // if the game has ended we will also send the word the user has guessed
                         return new Game(logik.getSynligtOrd(name), logik.getAntalForkerteBogstaver(name), logik.getBrugteBogstaver(name),
                                 String.valueOf(logik.erSpilletSlut(name)), logik.getOrdet(name));
-                    else
+                    else                           // returns a game as a json with necessary information
                         return new Game(logik.getSynligtOrd(name), logik.getAntalForkerteBogstaver(name), logik.getBrugteBogstaver(name), String.valueOf(logik.erSpilletSlut(name)));
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -45,10 +45,13 @@ public class GameController  {
     @ResponseBody
     public ResponseEntity guess(@RequestParam("name") String guess, @RequestParam("guess") String name) throws RemoteException, MalformedURLException, NotBoundException {
         getInformation();
-        if ((mBrugerValidation.checkUserTimeout(name)).getStatusCode() == HttpStatus.OK) {
-            logik.gætBogstav(guess,name);
-            System.out.println("bund");
-            return new ResponseEntity(HttpStatus.OK);
+        if ((mBrugerValidation.checkUserTimeout(name)).getStatusCode() == HttpStatus.OK) { // checks if a user has been timed out
+            if (logik != null) {
+                logik.gætBogstav(guess, name);
+                return new ResponseEntity(HttpStatus.OK);
+            }else {
+                return new ResponseEntity(HttpStatus.NOT_FOUND);
+            }
         }
         else{
             return new ResponseEntity(HttpStatus.FORBIDDEN);
@@ -58,7 +61,7 @@ public class GameController  {
     @DeleteMapping("/game")
     public ResponseEntity endGame(@RequestParam("name") String name) throws RemoteException {
         if ((mBrugerValidation.checkUserTimeout(name)).getStatusCode() == HttpStatus.OK) {
-            logik.nulstil(name);
+            logik.nulstil(name); // resets the game
             return new ResponseEntity(HttpStatus.OK);
         }else
             return new ResponseEntity(HttpStatus.FORBIDDEN);
